@@ -1,0 +1,94 @@
+#include <iostream>
+using namespace std;
+
+class Payment {
+public:
+    int id;
+    char customerName[50];
+    char itemName[50];
+    double amount;
+    char method[20];
+
+    void input() {
+        cout << "\nEnter Payment ID: ";
+        cin >> id;
+
+        cout << "Enter Customer Name (one word): ";
+        cin >> customerName;
+
+        cout << "Enter Item Name (one word): ";
+        cin >> itemName;
+
+        cout << "Enter Amount: ";
+        cin >> amount;
+
+        cout << "Enter Payment Method (Cash/Card): ";
+        cin >> method;
+    }
+
+    void display() {
+        cout << "Payment ID: " << id << endl;
+        cout << "Customer: " << customerName << endl;
+        cout << "Item: " << itemName << endl;
+        cout << "Amount: " << amount << endl;
+        cout << "Method: " << method << endl;
+        cout << "----------------------------\n";
+    }
+};
+
+class PaymentHistory {
+private:
+    Payment payments[100];
+    int count;
+
+public:
+    PaymentHistory() {
+        count = 0;
+    }
+
+    void addPayment() {
+        if (count < 100) {
+            payments[count].input();
+            count++;
+            cout << "\nPayment added successfully!\n";
+        } else {
+            cout << "\nStorage full!\n";
+        }
+    }
+
+    void showHistory() {
+        if (count == 0) {
+            cout << "\nNo payment records found.\n";
+            return;
+        }
+        cout << "\n------ Payment History ------\n";
+        for (int i = 0; i < count; i++) {
+            payments[i].display();
+        }
+    }
+};
+
+int main() {
+    PaymentHistory history;
+    int choice;
+
+    do {
+        cout << "\n===== Shopping Management - Payment Menu =====\n";
+        cout << "1. Add New Payment\n";
+        cout << "2. Show Payment History\n";
+        cout << "3. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            history.addPayment();
+        }
+        else if (choice == 2) {
+            history.showHistory();
+        }
+
+    } while (choice != 3);
+
+    cout << "\nExiting... Thank you!\n";
+    return 0;
+}
